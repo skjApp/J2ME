@@ -1,0 +1,8 @@
+MIDlet-1: Holi, /gu.png, Holi
+MIDlet-Description: An Entertaining Holi Game!
+MIDlet-Info-URL: http://www.skjworld.com
+MIDlet-Name: Holi
+MIDlet-Vendor: SKJ Technologies
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-1.0

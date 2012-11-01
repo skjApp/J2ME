@@ -1,0 +1,8 @@
+MIDlet-1: My3D, My3D.png, My3D
+MIDlet-Jar-Size: 3572
+MIDlet-Jar-URL: My3D.jar
+MIDlet-Name: My3D
+MIDlet-Vendor: Unknown
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0

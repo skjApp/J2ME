@@ -1,0 +1,8 @@
+MIDlet-1: CanvasGraphicsExample, , CanvasMIDlet
+MIDlet-Jar-Size: 3738
+MIDlet-Jar-URL: CanvasGraphicsExample.jar
+MIDlet-Name: CanvasGraphicsExample
+MIDlet-Vendor: Saurabh Jain
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-1.0

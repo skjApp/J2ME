@@ -1,0 +1,179 @@
+# If this log is to be used for incremental obfuscation / patch generation, 
+# add any '.class', '.method', '.field' and '.attribute' restrictions here:
+
+
+#-DO-NOT-EDIT-BELOW-THIS-LINE------------------DO-NOT-EDIT-BELOW-THIS-LINE--
+#
+# RetroGuard Bytecode Obfuscator, v1.1.13, a product of Retrologic Systems - www.retrologic.com
+#
+# Logfile created on Mon Feb 14 18:55:59 IST 2005
+#
+# Jar file to be obfuscated:           SKJ TicTacToe.jar
+# Target Jar file for obfuscated code: AfterObf.jar
+# RetroGuard Script file used:         script.rgs
+#
+#
+# Memory in use after class data structure built: 348520 bytes
+# Total memory available                        : 2031616 bytes
+#
+#
+# Obfuscated name overloading frequency:
+#  'a'   	used 19 times	(20%)
+#  'if'   	used 10 times	(10%)
+#  'do'   	used 9 times	(9%)
+#  'for'   	used 8 times	(8%)
+#  'new'   	used 6 times	(6%)
+#  'int'   	used 6 times	(6%)
+#  'byte'   	used 4 times	(4%)
+#  'try'   	used 4 times	(4%)
+#  'case'   	used 3 times	(3%)
+#  'b'   	used 2 times	(2%)
+#  'c'   	used 2 times	(2%)
+#  'goto'   	used 2 times	(2%)
+#  'char'   	used 2 times	(2%)
+#  'd'   	used 2 times	(2%)
+#  'e'   	used 2 times	(2%)
+#  'f'   	used 2 times	(2%)
+#  'else'   	used 2 times	(2%)
+#  'g'   	used 1 times	(1%)
+#  'h'   	used 1 times	(1%)
+#  'i'   	used 1 times	(1%)
+#  'long'   	used 1 times	(1%)
+#  'j'   	used 1 times	(1%)
+#  'k'   	used 1 times	(1%)
+#  'void'   	used 1 times	(1%)
+#  'null'   	used 1 times	(1%)
+#  Other names (each used in <1% of mappings) used a total of 0 times (6%)
+#
+#
+# Names reserved from obfuscation:
+#
+.class NCMIDlet
+#
+#
+# Obfuscated name mappings (some of these may be unchanged due to polymorphism constraints):
+#
+.class_map About a
+.field_map About/back a
+.field_map About/parent if
+.field_map About/menu do
+.method_map About/commandAction (Ljavax/microedition/lcdui/Command;Ljavax/microedition/lcdui/Displayable;)V commandAction
+.field_map NCMIDlet/animate a
+.field_map NCMIDlet/highscores if
+.field_map NCMIDlet/display do
+.field_map NCMIDlet/recordStore for
+.field_map NCMIDlet/started int
+.field_map NCMIDlet/recordStore1 new
+.field_map NCMIDlet/saved try
+.field_map NCMIDlet/scoreUpdated byte
+.field_map NCMIDlet/splash case
+.method_map NCMIDlet/setHighScore (Ljava/lang/String;)V a
+.method_map NCMIDlet/getAnimate ()Z a
+.method_map NCMIDlet/getDisplay ()Ljavax/microedition/lcdui/Display; if
+.method_map NCMIDlet/saveSettings ()V do
+.method_map NCMIDlet/initHighScores ()V for
+.method_map NCMIDlet/destroyApp (Z)V destroyApp
+.method_map NCMIDlet/startApp ()V startApp
+.method_map NCMIDlet/setDisplayable (Ljavax/microedition/lcdui/Displayable;)V a
+.method_map NCMIDlet/initSettings ()V int
+.method_map NCMIDlet/getScoreAt (I)Ljava/lang/String; a
+.method_map NCMIDlet/saveScores ()V new
+.method_map NCMIDlet/pauseApp ()V pauseApp
+.method_map NCMIDlet/setAnimate (Z)V a
+.class_map HighScore b
+.field_map HighScore/back a
+.field_map HighScore/parent if
+.field_map HighScore/form do
+.field_map HighScore/menu for
+.method_map HighScore/commandAction (Ljavax/microedition/lcdui/Command;Ljavax/microedition/lcdui/Displayable;)V commandAction
+.method_map HighScore/refresh ()V a
+.method_map HighScore/displayHS ()V if
+.class_map Settings c
+.field_map Settings/back a
+.field_map Settings/parent if
+.field_map Settings/alert do
+.field_map Settings/menu for
+.method_map Settings/commandAction (Ljavax/microedition/lcdui/Command;Ljavax/microedition/lcdui/Displayable;)V commandAction
+.method_map Settings/init ()V a
+.class_map MainMenu d
+.field_map MainMenu/instructions a
+.field_map MainMenu/game if
+.field_map MainMenu/exit do
+.field_map MainMenu/highScore for
+.field_map MainMenu/settings int
+.field_map MainMenu/parent new
+.field_map MainMenu/list try
+.field_map MainMenu/isChecked byte
+.method_map MainMenu/commandAction (Ljavax/microedition/lcdui/Command;Ljavax/microedition/lcdui/Displayable;)V commandAction
+.method_map MainMenu/init ()V a
+.class_map SplashScreen$1 1
+.field_map SplashScreen$1/this$0 this$0
+.method_map SplashScreen$1/run ()V run
+.class_map SplashScreen e
+.field_map SplashScreen/img a
+.field_map SplashScreen/parent if
+.field_map SplashScreen/maxY do
+.field_map SplashScreen/maxX for
+.field_map SplashScreen/menu int
+.field_map SplashScreen/timer new
+.method_map SplashScreen/keyPressed (I)V keyPressed
+.method_map SplashScreen/access$000 (LSplashScreen;)LMainMenu; access$000
+.method_map SplashScreen/paint (Ljavax/microedition/lcdui/Graphics;)V paint
+.method_map SplashScreen/keyReleased (I)V keyReleased
+.method_map SplashScreen/access$100 (LSplashScreen;)LNCMIDlet; access$100
+.method_map SplashScreen/startTimer ()V a
+.class_map Game$1 1
+.field_map Game$1/this$0 this$0
+.method_map Game$1/run ()V run
+.class_map Game f
+.field_map Game/random a
+.field_map Game/alert if
+.field_map Game/newG do
+.field_map Game/userWins for
+.field_map Game/bb int
+.field_map Game/compWins new
+.field_map Game/crossImage try
+.field_map Game/userSymbol byte
+.field_map Game/imgWidth case
+.field_map Game/parent char
+.field_map Game/timer else
+.field_map Game/frame goto
+.field_map Game/colSelected long
+.field_map Game/rowSelected null
+.field_map Game/back void
+.field_map Game/mainMenu b
+.field_map Game/compSymbol c
+.field_map Game/zeroImage d
+.field_map Game/sq e
+.field_map Game/score f
+.field_map Game/animated g
+.field_map Game/imgHeight h
+.field_map Game/maxY i
+.field_map Game/maxX j
+.field_map Game/aa k
+.method_map Game/access$302 (LGame;Ljavax/microedition/lcdui/Alert;)Ljavax/microedition/lcdui/Alert; access$302
+.method_map Game/getRandom (II)I a
+.method_map Game/paint (Ljavax/microedition/lcdui/Graphics;)V paint
+.method_map Game/newInit ()V a
+.method_map Game/r3 ()Z if
+.method_map Game/r4 ()Z do
+.method_map Game/access$400 (LGame;)I access$400
+.method_map Game/newGame ()V for
+.method_map Game/access$200 (LGame;)[[I access$200
+.method_map Game/access$100 (LGame;)Z access$100
+.method_map Game/access$500 (LGame;)I access$500
+.method_map Game/commandAction (Ljavax/microedition/lcdui/Command;Ljavax/microedition/lcdui/Displayable;)V commandAction
+.method_map Game/AIRun ()V int
+.method_map Game/r5 ()V new
+.method_map Game/access$700 (LGame;)V access$700
+.method_map Game/access$002 (LGame;I)I access$002
+.method_map Game/init ()V try
+.method_map Game/access$000 (LGame;)I access$000
+.method_map Game/access$300 (LGame;)Ljavax/microedition/lcdui/Alert; access$300
+.method_map Game/userWin ()Z byte
+.method_map Game/keyPressed (I)V keyPressed
+.method_map Game/r1 ()Z case
+.method_map Game/r2 ()Z char
+.method_map Game/win ()Z else
+.method_map Game/access$600 (LGame;)LNCMIDlet; access$600
+.method_map Game/compWin ()Z goto

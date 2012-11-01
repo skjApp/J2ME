@@ -1,0 +1,235 @@
+/******************************************************************************/
+/**
+ *	Author	:	Saurabh Jain
+ *	Version	:	1.0.0
+ *
+ *	Copyright (C) 2004 Superscape plc
+ *
+ *	This file is intended for use as a code example, and
+ *	may be used, modified, or distributed in source or
+ *	object code form, without restriction, as long as
+ *	this copyright notice is preserved.
+ *
+ *	The code and information is provided "as-is" without
+ *	warranty of any kind, either expressed or implied.
+ */
+/******************************************************************************/
+
+import javax.microedition.midlet.MIDlet;
+import javax.microedition.midlet.MIDletStateChangeException;
+import javax.microedition.lcdui.*;
+import javax.microedition.m3g.*;
+
+public class My3DWorld extends MIDlet implements CommandListener
+{
+	// Variables.
+	// Reference to the MIDlet's display
+    private Display myDisplay = null;
+
+    // Reference to the current canvas.
+    private CallbackCanvas myCanvas = null;
+
+	// A command which is used to exit from the MIDlet.
+    private Command exitCommand = new Command("Exit", Command.ITEM, 1);
+
+	// Reference to the world which contains the My3D cells.
+    private World myWorld = null;
+
+	// The root group, which is the one we rotate slowly.
+    private Group rootGroup = null ;
+	private Group rootGroup2 = null ;
+	private Camera myCamera = null ;
+
+	private float angleX ;
+	private float angleY ;
+	private int time ;
+
+	Graphics3D myGraphics3D = Graphics3D.getInstance();
+
+	int viewport_x;
+	int viewport_y;
+	int viewport_width;
+	int viewport_height;
+
+    public My3DWorld()
+    {
+		// Set up the user interface.
+        myDisplay = Display.getDisplay(this);
+        myCanvas = new CallbackCanvas(this);
+        myCanvas.setCommandListener(this);
+        myCanvas.addCommand(exitCommand);
+    }
+
+    /**
+     *	This initializes the game state, and generates a M3G world programmatically.
+     */
+    public void startApp() throws MIDletStateChangeException
+    {
+    	// Catch excpetions here before they go too far.
+        try
+        {
+        	// Create a new M3G world.
+			myWorld = (World)Loader.load("/swerve.m3g")[0] ;
+			setupAspectRatio() ;
+
+			// Attach to display
+	        myDisplay.setCurrent(myCanvas);
+
+			// Force a repaint so that we get the update loop started.
+            myCanvas.repaint();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    
+    /**
+     * On pause, simply shut everything down.
+     */
+    public void pauseApp()
+    {
+		// Release resources.
+		myWorld = null;
+    }
+
+    /**
+     * On exit, simply shut everything down
+     */
+    public void destroyApp(boolean unconditional) throws MIDletStateChangeException
+    {
+		// Release resources.
+        myWorld = null;
+		myCanvas = null;
+    }
+
+    /**
+     *	MIDlet paint method.
+     *
+     * 	This is called back from the inner Canvas class. It renders the current state of the
+     *	cells, then updates them and schedules another update.
+     */
+    public void paint(Graphics g)
+    {
+		if(myCanvas == null || myGraphics3D == null || myWorld == null)
+			return;
+		
+		if(g.getClipWidth() != viewport_width ||
+		   g.getClipHeight() != viewport_height ||
+		   g.getClipX() != viewport_x ||
+		   g.getClipY() != viewport_y)
+		{
+			g.setColor(0x00);
+			g.fillRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+		}
+
+		// Render the world to our Graphics (the screen) using the m3g class Graphics3D
+		// Note the use of try/finally to ensure that the Graphics3D always releases
+		// the target no matter what happens.
+
+        // render the 3d scene
+		myGraphics3D.bindTarget(g);
+		myGraphics3D.setViewport(viewport_x, viewport_y, viewport_width, viewport_height);
+		myGraphics3D.render(myWorld);
+		myGraphics3D.releaseTarget();
+    }
+
+	/**
+	 * Make sure that the content is rendered with the correct aspect ratio.
+	 */
+	private void setupAspectRatio()
+	{
+		viewport_x = 0;
+		viewport_y = 0;
+		viewport_width = myCanvas.getWidth();
+		viewport_height = myCanvas.getHeight();
+		
+		Camera cam = myWorld.getActiveCamera();
+		
+		float[] params = new float[4];
+		int type = cam.getProjection(params);
+		if(type != Camera.GENERIC)
+		{
+			//calculate window aspect ratio
+			float waspect=viewport_width/viewport_height;
+
+			if (waspect<params[1])
+			{
+				float height = viewport_width/params[1];
+				viewport_height=(int)height;
+				viewport_y=(myCanvas.getHeight()-viewport_height)/2;
+			}
+			else
+			{
+				float width = viewport_height*params[1];
+				viewport_width=(int)width;
+				viewport_x=(myCanvas.getWidth()-viewport_width)/2;
+			}
+		}
+	}
+
+    /**
+     *	Handle commands.
+     *	Currently, the only command enabled is "Exit" - this just
+     *	destroys the MIDlet immediately.
+     */
+    public void commandAction(Command cmd, Displayable disp)
+    {
+        if (cmd == exitCommand)
+        {
+            try
+            {
+                destroyApp(false);
+                notifyDestroyed();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     *	Handles key presses.
+     * 	This is called back from the inner Canvas class, and implements
+     *	the behavior of the various keys outlined in the class summary.
+     */
+    public void keyPressed(int keyCode)
+	{
+		time += 50 ;
+		myWorld.animate(time);
+		myCanvas.repaint() ;
+	}
+
+    /**
+     * Inner Canvas-derived class for handling canvas events.
+     */
+    private class CallbackCanvas extends Canvas
+    {
+        My3DWorld mymidlet;
+
+        /**
+         * Construct a new canvas
+         */
+        CallbackCanvas(My3DWorld midlet) { mymidlet = midlet; }
+
+        /**
+         * Initialize self.
+         */
+        void init() { }
+
+        /**
+         * Cleanup and destroy.
+         */
+        void destroy() { }
+
+        /**
+         * Ask mymidlet to paint itself
+         */
+        protected void paint(Graphics g) { mymidlet.paint(g); }
+
+        protected void keyPressed(int keyCode) { mymidlet.keyPressed(keyCode); }
+		protected void keyRepeated(int keyCode) { mymidlet.keyPressed(keyCode); }
+    }
+}

@@ -1,0 +1,8 @@
+MIDlet-1: ListImplicitExample, ListImplicitExample.png, ListDemoMIDlet
+MIDlet-Jar-Size: 1373
+MIDlet-Jar-URL: ListImplicitExample.jar
+MIDlet-Name: ListImplicitExample
+MIDlet-Vendor: Saurabh Jain
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-1.0

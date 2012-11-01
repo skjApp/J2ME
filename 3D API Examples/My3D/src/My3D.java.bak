@@ -1,0 +1,436 @@
+
+
+import javax.microedition.midlet.MIDlet;
+import javax.microedition.midlet.MIDletStateChangeException;
+import javax.microedition.lcdui.*;
+import javax.microedition.m3g.*;
+
+/**
+ *
+ * @author  Saurabh Jain
+ * @version 1.0
+ * Practice Example : 16
+ * This example demonstrates the basic functionality of 3D API.
+ * This example demonstrates a simple 3D pyramid constructed programatically.
+ */
+
+public class My3D extends MIDlet implements CommandListener
+{
+	// Reference to the MIDlet's display
+    private Display myDisplay = null;
+
+    // Reference to the current canvas.
+    private CallbackCanvas myCanvas = null;
+
+	// A command which is used to exit from the MIDlet.
+    private Command exitCommand = new Command("Exit", Command.ITEM, 1);
+
+	// Reference to the world which contains the My3D cells.
+    private World myWorld = null;
+
+	// The root group, which is the one we rotate slowly.
+    private Group rootGroup = null ;
+	private Group rootGroup2 = null ;
+	private Camera myCamera = null ;
+
+	private float angleX ;
+	private float angleY ;
+
+	// References to the My3D objects that represent the cells,
+	// one for each cell in the grid.
+    private Mesh cell ;
+
+	int[][] aaStripLengths = {{4}, {4}, {4}, {4}, {4}, {4}};
+
+	int [][] pLengths = {{4},{4},{4},{4},{4}};
+
+	
+	// These are the vertex positions
+	short[] aPos =
+	{
+		// Front
+		-1, -1,  1,	// B
+		 1, -1,  1,	// C
+		-1,  1,  1,	// A
+		 1,  1,  1,	// D
+		// Bottom
+		-1, -1, -1,	// F
+		 1, -1, -1,	// G
+		-1, -1,  1,	// B
+		 1, -1,  1,	// C
+		// Top
+		-1,  1,  1,	// A
+		 1,  1,  1,	// D
+		-1,  1, -1,	// E
+		 1,  1, -1,	// H
+		// Right
+		 1,  1,  1,	// D
+		 1, -1,  1,	// C
+		 1,  1, -1,	// H
+		 1, -1, -1,	// G
+		// Left
+		-1, -1,  1,	// B
+		-1,  1,  1,	// A
+		-1, -1, -1,	// F
+		-1,  1, -1,	// E
+		// Back
+		 1, -1, -1,	// G
+		-1, -1, -1,	// F
+		 1,  1, -1,	// H
+		-1,  1, -1	// E
+	};
+
+	short[] pPos =
+	{
+		// Front
+		-1,	 -1,  1,	// A
+		 0,  0,  0,	// B
+		 0,  -1,  1,	// F
+		 1,  -1,  1,	// C
+
+		// Right
+		 1,  -1,  1,	// C
+		 0,  0,  0,	// B
+		 1,  -1,  0,	// G
+		 1,  -1, -1,	// D
+
+		// Back
+		 1,  -1, -1,	// D
+		 0,  0,  0,	// B
+		 0,  -1, -1,	// H
+		-1,  -1, -1,	// E
+
+		// Left
+		-1,  -1, -1,	// E
+		 0,  0,  0,	// B
+		-1,  -1,  0,	// I
+		-1,  -1,  1,	// A
+
+		// Bottom
+		 1,  -1,  1,	// C
+		 1,  -1, -1,	// D
+		-1,  -1,  1,	// A
+		-1,  -1, -1,	// E
+	};
+
+	// These are the colors for the vertices
+	byte[] aCol =
+	{
+		// Front
+		-1, 0, 0,
+		-1, 0, 0,
+		-1, 0, 0,
+		-1, 0, 0,
+		// Bottom
+		 0, -1, 0,
+		 0, -1, 0,
+		 0, -1, 0,
+		 0, -1, 0,
+		// Top
+		 0,  0, -1,
+		 0,  -2, -1,
+		 0,  0, -1,
+		 0,  0, -1,
+		// Right
+		-1, -1,  0,
+		-1, -1,  0,
+		-1, -1,  0,
+		-1, -1,  0,
+		// Left
+		-1,  0, -1,
+		-1,  0, -1,
+		-1,  0, -1,
+		-1,  0, -1,
+		// Back
+		 0, -1, -1,
+		 0, -1, -1,
+		 0, -1, -1,
+		 0, -1, -1,
+	};
+
+	// These are the colors for the vertices
+	byte[] pCol =
+	{
+		// Front
+		-1, 0, 0,
+		-1, 0, 0,
+		-1, 0, 0,
+		-1, 0, 0,
+		// Bottom
+		 0, -1, 0,
+		 0, -1, 0,
+		 0, -1, 0,
+		 0, -1, 0,
+		// Top
+		 0,  0, -1,
+		 0,  -2, -1,
+		 0,  0, -1,
+		 0,  0, -1,
+		// Right
+		-1, -1,  0,
+		-1, -1,  0,
+		-1, -1,  0,
+		-1, -1,  0,
+		// Left
+		-1,  0, -1,
+		-1,  0, -1,
+		-1,  0, -1,
+		-1,  0, -1,
+		// Back
+		 0, -1, -1,
+		 0, -1, -1,
+		 0, -1, -1,
+		 0, -1, -1,
+	};
+
+    public My3D()
+    {
+		// NOTE : Heavy initialisations should be avoided in the constructor of the MIDlet.
+		// The MIDlet is in the paused state when the constructor is called.
+		// It does not have access to the resources it needs at this stage.
+		// Therefore all heavy initialisations should be done in the way shown below in 
+		// the startApp method.
+    }
+
+    public void startApp() throws MIDletStateChangeException
+    {
+		// NOTE : The startApp method is called whenever the Application Management Software(AMS)
+		// decides that the MIDlet needs to get activated.
+		// During the lifecycle of particular instance of the application this situation may arise
+		// many times. Therefore to save un-necessary initialisations every time the startApp method
+		// is called by the AMS, we should use a boolean variable to control the number of initialisations to 1.
+
+		if (init = false)
+		{
+			try
+			{
+				// Set up the user interface.
+				myDisplay = Display.getDisplay(this);
+				myCanvas = new CallbackCanvas(this);
+				myCanvas.setCommandListener(this);
+				myCanvas.addCommand(exitCommand);
+
+				// Create a new M3G world.
+				myWorld = new World();
+
+				// In this world, we have a root group which will contain everything else
+				// and which is tilted 15 degrees towards the camera.
+				rootGroup2 = new Group();
+				myWorld.addChild(rootGroup2);
+				rootGroup2.setOrientation(0.0f,0.0f,1.0f,0.0f);
+
+				// Under this, we have a second group which will be the one we rotate
+				// to get an all-round view of the game grid.
+				rootGroup = new Group();
+				rootGroup2.addChild(rootGroup);
+
+				// We now create a parallel camera - parallel projection is faster than
+				// perspective, and since we are rendering 512 separate objects that's a
+				// saving worth having.
+				myCamera = new Camera();
+				myWorld.addChild(myCamera);
+				myWorld.setActiveCamera(myCamera);
+
+				int cSubmeshes = aaStripLengths.length;
+				int cSubmeshes1 = pLengths.length;
+
+				int cVertices = aPos.length / 3;
+				int cVertices1 = pPos.length / 3;
+
+				Appearance app = new Appearance();
+
+				// We need to specify an appearance and the submesh data for each face.
+				Appearance [] appa = new Appearance[cSubmeshes1];
+				IndexBuffer [] iba = new IndexBuffer[cSubmeshes1];
+
+				int startIndex=0;
+				for(int i = 0;i < cSubmeshes1;i++)
+				{
+					// We use the same apppearance for each.
+					appa[i] = app;
+
+					// And we create a new triangle strip array for each submesh.
+					// The start index for each one just follows on from previous submeshes.
+					iba[i] = new TriangleStripArray(startIndex,pLengths[i]);
+					for(int j = 0; j < pLengths[i].length;j++)
+					{
+						startIndex += pLengths[i][j] ;
+					}
+				}
+
+				// Now we create a new vertex buffer that contains all the above information
+				VertexBuffer vertexBuffer = new VertexBuffer() ;
+
+				// Copy the vertex positions into a VertexArray object
+				VertexArray vaPos = new VertexArray(cVertices1, 3, 2);
+				vaPos.set(0, cVertices1, pPos);
+				vertexBuffer.setPositions(vaPos, 0.3f, null);
+
+				// Copy the vertex colors into a VertexArray object
+				VertexArray vaCols = new VertexArray(cVertices1, 3, 1);
+				vaCols.set(0, cVertices1, pCol);
+				vertexBuffer.setColors(vaCols);
+
+				Mesh m = new Mesh(vertexBuffer, iba, appa);
+				rootGroup.addChild(m);
+
+				// Attach to display
+				myDisplay.setCurrent(myCanvas);
+
+				// Force a repaint so that we get the update loop started.
+				myCanvas.repaint();
+
+				init = true ;
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+    }
+
+    
+    /**
+     * On pause, simply shut everything down.
+     */
+    public void pauseApp()
+    {
+		// Release resources.
+		myWorld = null;
+    }
+
+    /**
+     * On exit, simply shut everything down
+     */
+    public void destroyApp(boolean unconditional) throws MIDletStateChangeException
+    {
+		// Release resources.
+        myWorld = null;
+		myCanvas = null;
+    }
+
+    /**
+     *	MIDlet paint method.
+     *
+     * 	This is called back from the inner Canvas class. It renders the current state of the
+     *	cells, then updates them and schedules another update.
+     */
+    public void paint(Graphics g)
+    {
+		// We are not fully initialised yet; just return.
+        if(myCanvas == null || myWorld == null)
+            return;
+
+		// Render the world to our Graphics (the screen) using the m3g class Graphics3D
+		// Note the use of try/finally to ensure that the Graphics3D always releases
+		// the target no matter what happens.
+
+        Graphics3D myGraphics3D = Graphics3D.getInstance();
+        myGraphics3D.bindTarget(g);
+        try
+        {
+	        myGraphics3D.render(myWorld);
+	    }
+		finally
+		{
+	        myGraphics3D.releaseTarget();
+	 	}
+    }
+
+    /**
+     *	Handle commands.
+     *	Currently, the only command enabled is "Exit" - this just
+     *	destroys the MIDlet immediately.
+     */
+    public void commandAction(Command cmd, Displayable disp)
+    {
+        if (cmd == exitCommand)
+        {
+            try
+            {
+                destroyApp(false);
+                notifyDestroyed();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     *	Handles key presses.
+     * 	This is called back from the inner Canvas class, and implements
+     *	the behavior of the various keys outlined in the class summary.
+     */
+    public void keyPressed(int keyCode)
+	{
+		// Always rotate slowly. We set the orientation of rootGroup to achieve this,
+		// rotating it about its local Y (vertical) axis.
+
+		switch(myCanvas.getGameAction(keyCode))
+		{
+			case Canvas.UP:
+			{
+				angleX -= 5.0f ;
+				rootGroup.setOrientation(angleX, 1.0f,0.0f,0.0f);
+				break ;
+			}
+
+			case Canvas.DOWN:
+			{
+				angleX += 5.0f ;
+				rootGroup.setOrientation(angleX, 1.0f,0.0f,0.0f);
+				break ;
+			}
+
+			case Canvas.LEFT:
+			{
+				angleY -= 5.0f ;
+				rootGroup2.setOrientation(angleY,0.0f,1.0f,0.0f);
+				break ;
+			}
+
+			case Canvas.RIGHT:
+			{
+				angleY += 5.0f ;
+				rootGroup2.setOrientation(angleY,0.0f,1.0f,0.0f);
+				break ;
+			}
+		}
+
+		myCanvas.repaint() ;
+	}
+
+    /**
+     * Inner Canvas-derived class for handling canvas events.
+     */
+    private class CallbackCanvas extends Canvas
+    {
+        My3D mymidlet;
+
+         // Construct a new canvas
+        CallbackCanvas(My3D midlet) { mymidlet = midlet; }
+
+        // Initialize self.
+        void init() { }
+
+        // Cleanup and destroy.
+        void destroy() { }
+
+        protected void paint(Graphics g)
+		{
+			mymidlet.paint(g);
+		}
+
+        protected void keyPressed(int keyCode)
+		{
+			mymidlet.keyPressed(keyCode);
+		}
+
+		protected void keyRepeated(int keyCode)
+		{
+			mymidlet.keyPressed(keyCode);
+		}
+    }
+}

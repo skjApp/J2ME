@@ -1,0 +1,4 @@
+-libraryjars C:\WTK22\lib\jsr184.jar;C:\WTK22\lib\midpapi20.jar;C:\WTK22\lib\wma11.jar;C:\WTK22\lib\cldcapi11.jar
+-injars C:\WTK22\apps\My3D\bin\My3D.jar
+-outjar C:\DOCUME~1\SAURABH\LOCALS~1\Temp\My3D.jar
+-keep public class * extends javax.microedition.midlet.MIDlet 

@@ -1,0 +1,8 @@
+MIDlet-1: SKJ TicTacToe, /icon.png, NCMIDlet
+MIDlet-Description: A challenging and entertainin, animated TicTacToe game!
+MIDlet-Info-URL: http://www.skjworld.com
+MIDlet-Name: SKJ TicTacToe
+MIDlet-Vendor: SKJ Technologies
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-1.0

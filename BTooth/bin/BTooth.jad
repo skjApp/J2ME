@@ -1,0 +1,8 @@
+MIDlet-1: BTooth, BTooth.png, BTooth
+MIDlet-Jar-Size: 2830
+MIDlet-Jar-URL: BTooth.jar
+MIDlet-Name: BTooth
+MIDlet-Vendor: Saurabh Jain
+MIDlet-Version: 1.0.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-2.0

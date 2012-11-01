@@ -1,0 +1,170 @@
+import javax.microedition.lcdui.*;
+
+/**
+ * @author  Saurabh Jain
+ * @version 1.0
+ * Practice Example : 9
+ *
+ * An example which shows a Canvas and its key events
+*/
+
+public class EventDemo extends Canvas
+{
+    private int gameAction ;
+    private int kCode ;
+	private int state ;
+    
+	// Canvas constructor
+    public EventDemo()
+    {
+		// It is necessary to write super() as the first line in canvas constructor
+        super() ;
+    }
+    
+    protected void paint( Graphics g )
+    {
+		// Clears the screen
+        g.setColor( 255,255,255 ) ;
+        g.fillRect( 0,0,this.getWidth(),this.getHeight()) ;
+        
+		// Setting red color
+		g.setColor( 255,0,0 ) ;
+
+		g.drawString( "Please Press Any Key",0,0,Graphics.TOP | Graphics.LEFT ) ;
+		
+		switch( this.gameAction) 
+		{
+			case Canvas.RIGHT : // Constant Value : 5
+			{
+				g.drawString( "  Right key",0,20,Graphics.TOP | Graphics.LEFT ) ;
+				
+				break ;
+			}
+			case Canvas.LEFT : // Constant Value : 2
+			{
+				g.drawString( "  Left key",0,20,Graphics.TOP | Graphics.LEFT ) ;                    
+				break ;
+			}             
+			case Canvas.UP : // Constant Value : 1
+			{
+				g.drawString( "  Up key",0,20,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}               
+			case Canvas.DOWN : // Constant Value : 6
+			{
+				g.drawString( "  Down key",0,20,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}               
+			case Canvas.FIRE : // Constant Value : 8
+			{
+				g.drawString( "  Fire key",0,20,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}
+		}
+  
+		switch( this.kCode )  
+		{
+			case Canvas.KEY_NUM0 : // Constant Value : 48
+			{
+				g.drawString( "  0th key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}                   
+			case Canvas.KEY_NUM1 : // Constant Value : 49
+			{
+				g.drawString( "  1st key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}               
+			case Canvas.KEY_NUM2 : // Constant Value : 50
+			{
+				g.drawString( "  2nd key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}               
+			case Canvas.KEY_NUM3 : // Constant Value : 51
+			{
+				g.drawString( "  3rd key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}               
+			case Canvas.KEY_NUM4 : // Constant Value : 52
+			{
+				g.drawString( "  4th key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}              
+			case Canvas.KEY_NUM5 : // Constant Value : 53
+			{
+				g.drawString( "  5th key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}               
+			case Canvas.KEY_NUM6 : // Constant Value : 54
+			{
+				g.drawString( "  6th key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}
+			case Canvas.KEY_NUM7 : // Constant Value : 55
+			{
+				g.drawString( "  7th key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}                                
+			case Canvas.KEY_NUM8 : // Constant Value : 56
+			{
+				g.drawString( "  8th key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}
+			case Canvas.KEY_NUM9 : // Constant Value : 57
+			{
+				g.drawString( "  9th key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}
+			case Canvas.KEY_POUND : // Constant Value : 35
+			{
+				g.drawString( "  # key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}
+			case Canvas.KEY_STAR : // Constant Value : 42
+			{
+				g.drawString( "  * key",0,40,Graphics.TOP | Graphics.LEFT ) ;
+				break ;
+			}
+		}
+
+		if (state == 1)
+		{
+			g.drawString("  Key Repeated",0,60,Graphics.TOP | Graphics.LEFT ) ;
+		}
+		else if (state == 2)
+		{
+			g.drawString("  Key Released",0,60,Graphics.TOP | Graphics.LEFT ) ;
+		}
+    }    
+    
+    protected void keyPressed( int keyCode )
+    {
+		state = 0 ;
+
+		// Retrieving the game action from the key code
+        this.gameAction = getGameAction( keyCode ) ;
+
+		// Setting the key code in a global variable for use later
+        this.kCode = keyCode ;
+        
+		// Call to this method is necessary for repainting the screen
+        this.repaint() ;
+    }
+	
+	// NOTE : This method is not supported by all phones and emulators.
+	// This event is generally supported by high end phones.
+	protected void keyRepeated( int keyCode )
+    {
+		state = 1 ;
+
+		// Call to this method is necessary for repainting the screen
+		repaint() ;
+	}
+
+	protected void keyReleased( int keyCode )
+    {
+		state = 2 ;
+
+		// Call to this method is necessary for repainting the screen
+		repaint() ;
+	}
+} 

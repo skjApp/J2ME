@@ -1,0 +1,8 @@
+MIDlet-1: CanvasFontExample, , FontMIDlet
+MIDlet-Jar-Size: 2824
+MIDlet-Jar-URL: CanvasFontExample.jar
+MIDlet-Name: CanvasFontExample
+MIDlet-Vendor: Saurabh Jain
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-1.0

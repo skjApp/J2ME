@@ -1,0 +1,34 @@
+import javax.microedition.midlet.*;
+import javax.microedition.lcdui.*;
+
+/**
+ * @author SKJ
+ * @version 1.0.0
+ */
+
+public class CanvasEventMIDlet extends MIDlet 
+{
+    private Display display ;
+    private EventDemo eventDemo ;
+    
+    public CanvasEventMIDlet()
+    {
+        this.display = Display.getDisplay( this ) ; 
+    }
+    
+    public void startApp() 
+    {
+    	this.display.setCurrent( new EventDemo()) ; 
+    }
+    
+    public void pauseApp(){
+    }
+    
+    public void destroyApp(boolean unconditional) {
+    }
+        
+    public void setDisplayable( Displayable disp )
+    {
+        this.display.setCurrent( disp ) ;
+    }        
+}

@@ -1,0 +1,8 @@
+MIDlet-1: TickerExample, , TickerMIDlet
+MIDlet-Jar-Size: 1208
+MIDlet-Jar-URL: TickerExample.jar
+MIDlet-Name: TickerExample
+MIDlet-Vendor: Saurabh Jain
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-1.0

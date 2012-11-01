@@ -1,0 +1,4 @@
+-libraryjars C:\WTK20\lib\mmapi.zip;C:\WTK20\lib\wma.zip;C:\WTK20\lib\midpapi.zip
+-injars C:\WTK20\apps\Holi\bin\Holi.jar
+-outjar C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\Holi.jar
+-keep public class * extends javax.microedition.midlet.MIDlet 
